@@ -1,0 +1,46 @@
+
+
+<div  class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLable" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="taskForm" (ngSubmit)="updateTask()">
+            <div class="mb-3">
+              <label for="assignedTo" class="form-label">Assigned To</label>
+              <select formControlName="assignedTo" id="assignedTo" class="form-select">
+                <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" formControlName="status">
+                  <option [ngValue]='null' disabled selected>Select Status</option>
+                  <option *ngFor="let status of statuses" [value]="status">{{ status}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="dueDate" class="form-label">Due Date</label>
+                <input type="date" class="form-control" id="dueDate" formControlName="dueDate">
+              </div>
+              <div class="mb-3">
+                <label for="priority" class="form-label">Priority</label>
+                <select class="form-select" id="priority" formControlName="priority">
+                  <option [ngValue]='null' disabled selected>Select Priority</option>
+                  <option *ngFor="let prio of priorities" [value]="prio">{{ prio}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="comments" class="form-label">Comments</label>
+                <textarea class="form-control" id="comments" formControlName="comments"></textarea>
+              </div>
+            <button type="submit" class="btn btn-primary">Update Task</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

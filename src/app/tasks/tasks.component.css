@@ -1,0 +1,7 @@
+.dropdown-menu {
+    z-index: 1050; /* Set higher than other elements */
+    position: absolute; /* Allow positioning relative to the parent */
+    transform: translateY(-100%); /* Move it above */
+    top: -10px; /* Adjust based on your layout */
+  }
+  

@@ -1,0 +1,66 @@
+
+<div class="conatiner-fluid mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h2 class="mb-0">Tasks</h2>
+    <div class="d-flex align-items-center">
+      <button 
+        class="btn btn-primary me-2" 
+        (click)="openModal()">
+        New Task
+      </button>
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search..." 
+       [(ngModel)]="searchString"
+        style="width: 300px;"/>
+    </div>
+  </div>
+  
+<ngx-datatable
+#table class="bootstrap table-striped  table-hover" 
+[limit]='5'
+  [rows]="tasks | search:searchString"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'">
+ 
+  <ngx-datatable-column name="<strong>Sr No.</strong>">
+    <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+      <strong>{{ rowIndex+1 }}</strong>
+      
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name=" <strong> Assigned To </strong>" prop="assignedTo"></ngx-datatable-column>
+  <ngx-datatable-column name=" <strong> Status </strong>" prop="status"></ngx-datatable-column>
+  <ngx-datatable-column name=" <strong> Due Date </strong>" prop="dueDate"></ngx-datatable-column>
+  <ngx-datatable-column name=" <strong> priority </strong>" prop="priority"></ngx-datatable-column>
+  <ngx-datatable-column name=" <strong> Comments </strong>" prop="comments"></ngx-datatable-column>
+ 
+
+  
+  <ngx-datatable-column name="<strong>Actions</strong>">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <div class="dropdown " style="position: static;" >
+        <button class="btn btn-secondary dropdown-toggle  dropdown-menu-end" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" >
+          Actions
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li>
+            <button class="dropdown-item" (click)="openEditModal(row)">Edit</button>
+          </li>
+          <li>
+            <button class="dropdown-item" (click)="deleteTask(row.id)">Delete</button>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+<app-add-task (taskAdded)="onTaskAdded()"></app-add-task>
+<app-update-task *ngIf="isEditTask" [taskId]="selectedTaskId" (taskUpdated)="onTaskUpdated()"></app-update-task>
+</div>
+
